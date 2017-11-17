@@ -20,7 +20,7 @@ void SoltarDisco()
 
 }
 
-void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
+void Jogando( int j,int t,int *torre1, int *torre2, int *torre3, char *nome)
 {
 
     system("cls");
@@ -67,10 +67,12 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
         }
 
     }
+
     cout<<"==========================="<<endl;
+    cout<<" Jogador: "<<nome<<endl;
     cout<<" Quantidade de jogadas = "<<j<<endl;
     cout<<"==========================="<<endl;
-    cout<<"==========================="<<endl;
+
 
 // Verificar se eu estou escolhendo uma torre válida
     int pegaDiscoTorre=0;
@@ -107,7 +109,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
             if(VerificarT1 == t)
             {
                 cout<<"Não pode selecionar a Torre 1!";
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
 
             torre1[disco_i]=0;
@@ -131,7 +133,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
             if(VerificarT2 == t)
             {
                 cout<<"Não pode selecionar a Torre 2!";
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
             torre2[disco_i]=0;
             break;
@@ -155,7 +157,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
             if(VerificarT3 == t)
             {
                 cout<<"Não pode selecionar a Torre 3!";
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
             else
             {
@@ -201,7 +203,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
             if(disco > topoTorre && topoTorre!=0 )
             {
                 cout<<"disco "<<disco<<" não pode ficar em cima do disco "<<topoTorre<<"!"<<endl;
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
             else if(topoTorre==0)
             {
@@ -212,7 +214,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
                     j++;
                 }
 
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
 
             }
             else if(topoTorre!=0)
@@ -224,7 +226,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
 
 
             }
@@ -247,7 +249,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
             if(disco > topoTorre && topoTorre!=0)
             {
                 cout<<"disco "<<disco<<" não pode ficar em cima do disco"<<topoTorre<<"!"<<endl;
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
             else if(topoTorre==0)
             {
@@ -256,7 +258,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
 
             }
             else if(topoTorre!=0)
@@ -267,7 +269,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
 
             }
 
@@ -289,7 +291,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
             if(disco > topoTorre && topoTorre!=0)
             {
                 cout<<"disco "<<disco<<" não pode ficar em cima do disco"<<topoTorre<<"!"<<endl;
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
             else if(topoTorre==0)
             {
@@ -298,7 +300,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
             }
             else if(topoTorre!=0)
             {
@@ -308,7 +310,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3);
+                Jogando(j,t,torre1, torre2, torre3,nome);
 
             }
 
@@ -330,7 +332,7 @@ void Jogando( int j,int t,int *torre1, int *torre2, int *torre3)
 
 }
 
-void iniciarTorres(int Qd)
+void iniciarTorres(int Qd, char *nome)
 {
 
     int j=0;//jogadas
@@ -353,10 +355,10 @@ void iniciarTorres(int Qd)
         Qd--;
 
     }
-    Jogando(j,tamTorre,torre1, torre2, torre3);
+    Jogando(j,tamTorre,torre1, torre2, torre3,nome);
 }
 
-void NumDiscos(int d)
+void NumDiscos(int d, char *nome)
 {
     system("cls");
 
@@ -388,7 +390,7 @@ void NumDiscos(int d)
 
     if(QtDiscos>1)
     {
-        iniciarTorres(QtDiscos);
+        iniciarTorres(QtDiscos,nome);
     }
     else if (QtDiscos ==1)
     {
@@ -397,6 +399,8 @@ void NumDiscos(int d)
     else
     {
 
+        cout<<"=============================="<<endl;
+        cout<<"Jogador: "<<nome<<endl;
         cout<<"=============================="<<endl;
         cout<<"=informou uma opção inválida!="<<endl;
         cout<<"=============================="<<endl;
@@ -411,7 +415,7 @@ void NumDiscos(int d)
         cout<<" 0 - Sair do jogo:"<<endl;
         cout<<"=============================="<<endl;
         cin>>d;
-        NumDiscos(d);
+        NumDiscos(d,nome);
 
     }
 //aqui podemos implementar para o programa chamar a função IniciarJogo(); novamente se o usuário desejar jogar denovo...
@@ -421,9 +425,28 @@ void NumDiscos(int d)
 int main()
 {
 
+
+    cout<<"===================================="<<endl;
+    cout<<"              WELCOME!              "<<endl;
+    cout<<"===================================="<<endl;
+
+    char nome[100];
+
+    cout<<"insira seu nome para iniciar o jogo:"<<endl;
+    cin.getline(nome,49);
+
+    while(*nome == '\0'){
+
+    cout<<"insira seu nome para iniciar o jogo:"<<endl;
+    cout<<" ou informe 0 para sair do jogo...";
+    cin.getline(nome,49);
+    }
+    if(*nome !='0'){
     int dificuldade;
 
+    system("cls");
     cout<<"=============================="<<endl;
+    cout<<"Jogador: "<<nome<<endl;
     cout<<"escolha a dificuldade do jogo:"<<endl;
     cout<<"=============================="<<endl;
     cout<<"Opções:"<<endl;
@@ -435,6 +458,10 @@ int main()
     cout<<"=============================="<<endl;
     cin>>dificuldade;
 
-    NumDiscos(dificuldade);
+    NumDiscos(dificuldade,nome);
 
+    }else if(*nome =='0'){
+    cout<<"encerrando o jogo...";
+
+    }
 }
