@@ -1,5 +1,7 @@
 # depslib dependency file v1.0
-1510929376 source:c:\users\john victor\desktop\ufrn\2º semestre\lop\jogotorredehanoi\main.cpp
+1511296466 source:c:\users\john victor\desktop\ufrn\2º semestre\lop\jogotorredehanoi\main.cpp
 	<iostream>
 	<stdlib.h>
+	<math.h>
+	<ctime>
 
