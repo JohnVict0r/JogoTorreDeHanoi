@@ -5,20 +5,38 @@
 #include <locale.h>
 
 using namespace std;
+int v=0, p1=0,p2=0;
+char jogador1[100] ;
+char jogador2[100];
 
-
+void finalizando();
 void menu();
 void instrucoes();
-void pegarNome();
-void iniciarJogo(char *nome);
+void pegarNome(int tipo);
+void modoDoJogo();
+void singlePlayer();
+void multiplayer();
+void verificarGanhador(char *nome, int pontos);
+void iniciarJogo(char *nome, int tipo);
 void numDiscos();
-void Jogando( int j,int t,int *torre1, int *torre2, int *torre3, char *nome);
-void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome);
-void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *torre1, int *torre2, int *torre3, char *nome);
+int Jogando( int j,int t,int *torre1, int *torre2, int *torre3, char *nome, int tipo);
+void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome, int tipo);
+void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *torre1, int *torre2, int *torre3, char *nome, int tipo);
 int quantMinJogadas();
 float pontuacao();
 
-void pegarNome(){
+int main()
+{
+//inicializando o jogo;
+   setlocale(LC_ALL, "Portuguese");
+
+    menu();
+
+return 0;
+}
+
+
+void pegarNome(int tipo){
 
 char nome[100];
 
@@ -31,7 +49,7 @@ char nome[100];
     cin.getline(nome,49);
     }
 
-    iniciarJogo(nome);
+iniciarJogo(nome,tipo);
 }
 
 float pontuacao(float t,  float j, float r){
@@ -41,6 +59,7 @@ float pontos = (1000.0*t)*(r/j);
 return pontos;
 
 }
+
 int quantMinJogadas(int t){
 int jmin;
 
@@ -50,9 +69,7 @@ return jmin;
 
 }
 
-
-
-void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome)
+void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome, int tipo)
 {
 
     int pegaDiscoTorre=0;
@@ -89,7 +106,7 @@ void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome)
             if(VerificarT1 == t)
             {
                 cout<<"Não pode selecionar a Torre 1!";
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome,tipo);
             }
 
             torre1[disco_i]=0;
@@ -113,7 +130,7 @@ void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome)
             if(VerificarT2 == t)
             {
                 cout<<"Não pode selecionar a Torre 2!";
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
             }
             torre2[disco_i]=0;
             break;
@@ -137,7 +154,7 @@ void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome)
             if(VerificarT3 == t)
             {
                 cout<<"Não pode selecionar a Torre 3!";
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
             }
             else
             {
@@ -154,11 +171,11 @@ void PegarDisco(int j, int t,int *torre1, int *torre2, int *torre3, char *nome)
         }
     }
 
-    SoltarDisco(pegaDiscoTorre, disco,disco_i, j, t, torre1,torre2, torre3, nome);
+    SoltarDisco(pegaDiscoTorre, disco,disco_i, j, t, torre1,torre2, torre3, nome, tipo);
 
 }
 
-void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *torre1, int *torre2, int *torre3, char *nome)
+void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *torre1, int *torre2, int *torre3, char *nome, int tipo)
 {
 
     int VerificarT1=0, VerificarT2=0, VerificarT3=0;
@@ -211,7 +228,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
 
 
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
             }
             else if(topoTorre==0)
             {
@@ -222,7 +239,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
                     j++;
                 }
 
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
 
             }
             else if(topoTorre!=0)
@@ -234,7 +251,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
 
 
             }
@@ -271,7 +288,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
 
 
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
             }
             else if(topoTorre==0)
             {
@@ -280,7 +297,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
 
             }
             else if(topoTorre!=0)
@@ -291,7 +308,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
 
             }
             break;
@@ -325,7 +342,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
 
 
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
             }
             else if(topoTorre==0)
             {
@@ -334,7 +351,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
             }
             else if(topoTorre!=0)
             {
@@ -344,7 +361,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
                 {
                     j++;
                 }
-                Jogando(j,t,torre1, torre2, torre3,nome);
+                Jogando(j,t,torre1, torre2, torre3,nome, tipo);
 
             }
 
@@ -362,7 +379,7 @@ void SoltarDisco(int pegaDiscoTorre, int disco,int disco_i,int j, int t,int *tor
     }
 }
 
-void Jogando( int j,int t,int *torre1, int *torre2, int *torre3, char *nome)
+int Jogando( int j,int t,int *torre1, int *torre2, int *torre3, char *nome, int tipo)
 {
 
     system("cls");
@@ -431,20 +448,20 @@ int soma=0;
 
     }
 if(soma>0){
-PegarDisco(j,t,torre1, torre2, torre3,nome);
+PegarDisco(j,t,torre1, torre2, torre3,nome, tipo);
 }else{
 float pontos = pontuacao(t,j,resultadoQuantMinJogadas);
 cout<<"Você cumpriu o objetivo do jogo em "<<j<<" jogadas"<<endl;
 cout<<"pontuação: "<<pontos<<" pts"<<endl<<endl;
 
-
+if(tipo==0){
     cout<<"quer jogar novamente? (s/n)"<<endl;
     cin>>jogarNovamente;
 
     switch(jogarNovamente){
 
     case 's':
-    iniciarJogo(nome);
+    iniciarJogo(nome, tipo);
     break;
 
     case 'n':
@@ -453,21 +470,28 @@ cout<<"pontuação: "<<pontos<<" pts"<<endl<<endl;
 
     default:
     cout<<"Erro no sistema..."<<endl;
-    break;
+
 
 
 
     }
 
+}else if(tipo==1){
 
-
+    verificarGanhador(nome,pontos);
+    if(v==2){
+        finalizando();
+    }
 
 }
 
 
 }
 
-void iniciarTorres(int Qd, char *nome)
+
+}
+
+void iniciarTorres(int Qd, char *nome,int tipo)
 {
 
     int j=0;//jogadas
@@ -490,10 +514,10 @@ void iniciarTorres(int Qd, char *nome)
         Qd--;
 
     }
-    Jogando(j,tamTorre,torre1, torre2, torre3,nome);
+    Jogando(j,tamTorre,torre1, torre2, torre3,nome,tipo);
 }
 
-void numDiscos(int d, char *nome)
+void numDiscos(int d, char *nome, int tipo)
 {
     system("cls");
 
@@ -528,7 +552,7 @@ void numDiscos(int d, char *nome)
 
     if(QtDiscos>1)
     {
-        iniciarTorres(QtDiscos,nome);
+        iniciarTorres(QtDiscos,nome,tipo);
     }
     else if (QtDiscos ==1)
     {
@@ -553,14 +577,14 @@ void numDiscos(int d, char *nome)
         cout<<" 0 - Sair do jogo:"<<endl;
         cout<<"=============================="<<endl;
         cin>>d;
-        numDiscos(d,nome);
+        numDiscos(d,nome,tipo);
 
     }
 //aqui podemos implementar para o programa chamar a função IniciarJogo(); novamente se o usuário desejar jogar denovo...
 
 }
 
-void iniciarJogo(char *nome){
+void iniciarJogo(char *nome,int tipo){
 
 
 
@@ -581,9 +605,180 @@ void iniciarJogo(char *nome){
     cout<<"=============================="<<endl;
     cin>>dificuldade;
 
-    numDiscos(dificuldade,nome);
+    numDiscos(dificuldade, nome,tipo);
 
 
+
+}
+
+void modoDoJogo(){
+
+    char modoJogo='0';
+    int cont=0;
+    while(modoJogo<'1' || modoJogo >'2' ){
+
+    if(cont>0){
+
+        cout<<"Você informou uma opção inválida..."<<endl;
+
+    }
+
+    cout<<"============================="<<endl;
+    cout<<"Escolha o modo do jogo:"<<endl;
+    cout<<"============================="<<endl;
+    cout<<"1- Single Player"<<endl;
+    cout<<"2- Multiplayer"<<endl;
+    cin>>modoJogo;
+    cont++;
+
+    }
+
+    switch(modoJogo){
+
+    case '1':
+
+        singlePlayer();
+        break;
+
+    case '2':
+        multiplayer();
+        break;
+
+    default:
+        cout<<"erro no sistema...";
+        break;
+    }
+}
+
+void singlePlayer(){
+int tipo =0;
+pegarNome(tipo);
+
+}
+
+void multiplayer(){
+int tipo=1;
+int p1=0;
+//vez do jogador 1
+cout<<"Jogador 01:"<<endl;
+pegarNome(tipo);
+
+cout<<"jogador 02:"<<endl;
+pegarNome(tipo);
+
+}
+
+void verificarGanhador(char *nome, int pontos){
+system("cls");
+v++;
+if(v==1){
+
+    for(int i=0; i<30; i++){
+        jogador1[i]= nome[i];
+    }
+
+ p1 = pontos;
+
+}else if(v==2){
+
+for(int i=0; i<30; i++){
+        jogador2[i]= nome[i];
+    }
+ p2 = pontos;
+}
+
+if(v==2){
+
+    if(p1>p2){
+
+        cout<<"============================"<<endl;
+        cout<<"         Vencedor!"<<endl;
+        cout<<"============================"<<endl;
+        cout<<"jogador 1: ";
+
+        for(int i=0; i<30; i++){
+
+        cout<<jogador1[i];
+         //sair do for, considerando que o restante do nome sera vazio
+        if(jogador1[i] ==' ' ){
+
+            i=30;
+        }
+        }
+        cout<<endl<<"pontos: "<<p1<<endl;
+    cout<<"============================"<<endl;
+
+
+    }else if (p2>p1){
+
+        cout<<"============================"<<endl;
+        cout<<"         Vencedor!"<<endl;
+        cout<<"============================"<<endl;
+        cout<<"jogador 2 ";
+
+        for(int i=0; i<30; i++){
+
+        cout<<jogador2[i];
+
+         //sair do for, considerando que o restante do nome sera vazio
+        if(jogador2[i] ==' ' ){
+
+            i=30;
+        }
+
+        }
+
+        cout<<endl<<"pontos: "<<p2<<endl;
+        cout<<"============================"<<endl;
+    }else{
+
+
+        cout<<"============================"<<endl;
+        cout<<"         Empataram!"<<endl;
+        cout<<"============================"<<endl;
+
+    cout<<"jogador 01: ";
+
+
+        for(int i=0; i<30; i++){
+
+        cout<<jogador1[i];
+
+        //sair do for, considerando que o restante do nome sera vazio
+        if(jogador1[i] ==' ' ){
+
+            i=30;
+        }
+
+        }
+    cout<<endl<<"pontos: "<<p1<<endl;
+    cout<<"============================"<<endl;
+
+    cout<<"jogador 02: ";
+
+        for(int i=0; i<30; i++){
+
+        cout<<jogador2[i];
+        if(jogador2[i]==' ' ){
+
+            i=30;
+
+        }
+        }
+
+    cout<<endl<<"pontos: "<<p2<<endl;
+    cout<<"============================"<<endl;
+
+
+    }
+
+}
+
+}
+
+void finalizando(){
+
+cout<<endl<<"Finalizando o jogo..."<<endl;
 
 }
 
@@ -635,7 +830,7 @@ int op=-1;
     switch(op){
 
     case 1:
-        pegarNome();
+        modoDoJogo();
         break;
     case 2:
         intrucoes();
@@ -648,14 +843,4 @@ int op=-1;
         cout<<"reinicie o jogo por favor...";
     }
 
-}
-
-int main()
-{
-//inicializando o jogo;
-   setlocale(LC_ALL, "Portuguese");
-
-    menu();
-
-return 0;
 }
